@@ -1,21 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ServerSocket;
+import java.net.*;
+import java.io.*;
 
-/**
- *
- * @author blondi.nicholas
- */
-public class ServerSocket {
+public class Server {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+          ServerSocket serverSocket = new ServerSocket(5000);
+        Socket clientSocket = serverSocket.accept();
+        out = new PrintWriter(clientSocket.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        String greeting = in.readLine();
+            if ("hello server".equals(greeting)) {
+                out.println("hello client");
+            }
+            else {
+                out.println("unrecognised greeting");
+            }
+        in.close();
+        out.close();
+        clientSocket.close();
+        serverSocket.close();
     }
+    }catch (IOExeption ex){
+        logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+}
     
 }
