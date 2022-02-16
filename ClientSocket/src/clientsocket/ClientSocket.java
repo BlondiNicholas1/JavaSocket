@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package serverSocket;
+package clientsocket;
 
-import java.net.*;
 import java.io.*;
+import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,29 +14,24 @@ import java.util.logging.Logger;
  *
  * @author pogliani.mattia
  */
-public class Server {
+public class ClientSocket {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(5000);
-            Socket clientSocket = serverSocket.accept();
+            Socket clientSocket = new Socket("10.1.33.200", 5000);
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String greeting = in.readLine();
-            if ("hello server".equals(greeting)) {
-                out.println("hello client");
-            } else {
-                out.println("unrecognised greeting");
-            }
+            out.println("hello server");
+            String resp = in.readLine();
+            System.out.println("risposta del server: " + resp);
             in.close();
             out.close();
             clientSocket.close();
-            serverSocket.close();
         } catch (IOException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientSocket.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
