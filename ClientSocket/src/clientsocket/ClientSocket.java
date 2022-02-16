@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javasocket;
+package clientsocket;
 
 /**
  *
  * @author blondi.nicholas
  */
-public class JavaSocket {
+public class ClientSocket {
 
     /**
      * @param args the command line arguments
