@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package serverSocket;
 
 import java.net.*;
@@ -16,16 +21,19 @@ public class Server {
      */
     public static void main(String[] args) {
         try {
-            java.net.ServerSocket serverSocket = new java.net.ServerSocket(5000);
+            ServerSocket serverSocket = new ServerSocket(5000);
             Socket clientSocket = serverSocket.accept();
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String greeting = in.readLine();
-            if ("hello server".equals(greeting)) {
-                out.println("hello client");
-            } else {
-                out.println("unrecognised greeting");
-            }
+            boolean fine = false;
+            String messaggio;
+            while (!fine) {
+                messaggio = in.readLine();
+                if (messaggio.equals("fine")) {
+                    fine = true;
+                }
+                out.println(messaggio.toUpperCase());
+            }            
             in.close();
             out.close();
             clientSocket.close();
@@ -34,4 +42,5 @@ public class Server {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 }
